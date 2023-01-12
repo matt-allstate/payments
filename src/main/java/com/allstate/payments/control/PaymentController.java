@@ -1,0 +1,44 @@
+package com.allstate.payments.control;
+
+import com.allstate.payments.domain.Payment;
+import com.allstate.payments.exceptions.PaymentNotFoundException;
+import com.allstate.payments.service.PaymentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@CrossOrigin
+@RequestMapping("/api/payment")
+public class PaymentController {
+
+    @Autowired
+    private PaymentService paymentService;
+
+    @GetMapping
+    public List<Payment> getAllPayments(@RequestParam(value="country", required = false) String country) {
+        if (country == null) {
+            return paymentService.getAllPayments();
+        }
+        else {
+            return paymentService.getByCountry(country);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public Payment findById(@PathVariable Integer id) throws PaymentNotFoundException {
+        return paymentService.getById(id);
+    }
+
+//    @GetMapping("/{paymentId}")
+//    public Payment findById(@PathVariable("paymentId") Integer id) {
+//        return paymentService.getById(id);
+//    }
+
+//    @GetMapping("/claims/insurancetype/{itype}/{status}")
+//    public void doSomethingClever(@PathVariable String itype, @PathVariable("status") Integer status) {
+//        System.out.println(itype);
+//    }
+
+}
