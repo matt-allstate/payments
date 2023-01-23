@@ -6,6 +6,7 @@ import com.allstate.payments.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -34,6 +35,17 @@ public class PaymentController {
     @GetMapping("/{id}")
     public Payment findById(@PathVariable Integer id) throws PaymentNotFoundException {
         return paymentService.getById(id);
+    }
+
+    @PostMapping
+    public Payment saveNewPayment(@RequestBody Payment payment) {
+        System.out.println(payment);
+        return paymentService.savePayment(payment);
+    }
+
+    @PutMapping("/{id}")
+    public Payment updatePayment(@PathVariable Integer id, @RequestBody HashMap<String, Object> fields) {
+        return paymentService.updatePayment(id, fields);
     }
 
 //    @GetMapping("/{paymentId}")

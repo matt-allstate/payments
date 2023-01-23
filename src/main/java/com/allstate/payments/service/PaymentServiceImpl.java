@@ -69,4 +69,35 @@ public class PaymentServiceImpl implements PaymentService {
                 .collect(Collectors.toList());
 
     }
+
+    @Override
+    public Payment savePayment(Payment payment) {
+        return paymentRepository.save(payment);
+    }
+
+    @Override
+    public Payment updatePayment(Integer id, Map<String, Object> fields) {
+        //load the existing payment
+        Payment payment = paymentRepository.findById(id).get(); //should really check it is there + throw an exception
+
+        //update those fields that have changed
+        if (fields.containsKey("country")) {
+            payment.setCountry(fields.get("country").toString());
+        }
+        if (fields.containsKey("amount")) {
+            //any logic eg is amount > 0?
+            payment.setAmount(Double.parseDouble(fields.get("amount").toString()));
+        }
+
+//        for (String field : fields.keySet()) {
+//            switch(field) {
+//                case "country" : payment....
+//                                break;
+//                
+//            }
+//        }
+
+        //save and return the payment
+        return paymentRepository.save(payment);
+    }
 }
