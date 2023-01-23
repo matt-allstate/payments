@@ -63,13 +63,13 @@ public class PaymentServiceImpl implements PaymentService {
 //        List<String> countries = new ArrayList<>(uniqueCountries);
 //        return countries;
 
-//        return paymentRepository.findAll().stream()
-//                .map( payment -> payment.getCountry().toLowerCase())
-//                .distinct()
-//                .collect(Collectors.toList());
+        return paymentRepository.findAll().stream()
+                .map( payment -> payment.getCountry().toLowerCase())
+                .distinct()
+                .collect(Collectors.toList());
 
-        return paymentRepository.getAllCountries();
-
+//        return paymentRepository.getAllCountries();
+//
     }
 
     @Override
