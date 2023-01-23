@@ -10,5 +10,6 @@ import java.util.List;
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
 
     public List<Payment> findAllByCountry(String country);
+    public List<Payment> findAllByOrderId(String order);
 
 }

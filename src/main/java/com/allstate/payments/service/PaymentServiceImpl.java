@@ -6,14 +6,23 @@ import com.allstate.payments.exceptions.PaymentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
     private PaymentRepository paymentRepository;
+
+//    @Autowired
+//    public void setPaymentRepository(PaymentRepository paymentRepository) {
+//        this.setPaymentRepository(paymentRepository);
+//    }
+
+//    public PaymentServiceImpl(PaymentRepository paymentRepository) {
+//        this.paymentRepository = paymentRepository;
+//    }
 
     @Override
     public List<Payment> getAllPayments() {
@@ -37,5 +46,27 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public List<Payment> getByCountry(String country) {
         return paymentRepository.findAllByCountry(country);
+    }
+
+    @Override
+    public List<Payment> getByOrder(String order) {
+        return paymentRepository.findAllByOrderId(order);
+    }
+
+    @Override
+    public List<String> getAllCountries() {
+//        List<Payment> allPayments = paymentRepository.findAll();
+//        Set<String> uniqueCountries = new HashSet<>();
+//        for (Payment payment : allPayments) {
+//            uniqueCountries.add(payment.getCountry());
+//        }
+//        List<String> countries = new ArrayList<>(uniqueCountries);
+//        return countries;
+
+        return paymentRepository.findAll().stream()
+                .map( payment -> payment.getCountry().toLowerCase())
+                .distinct()
+                .collect(Collectors.toList());
+
     }
 }

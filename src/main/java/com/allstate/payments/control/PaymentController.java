@@ -17,12 +17,17 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @GetMapping
-    public List<Payment> getAllPayments(@RequestParam(value="country", required = false) String country) {
-        if (country == null) {
-            return paymentService.getAllPayments();
+    public List<Payment> getAllPayments(@RequestParam(value="country", required = false) String country,
+                                        @RequestParam(value="order", required = false) String order) {
+        if (order != null) {
+            return paymentService.getByOrder(order);
         }
-        else {
+        else if (country != null) {
             return paymentService.getByCountry(country);
+        }
+        else
+         {
+            return paymentService.getAllPayments();
         }
     }
 

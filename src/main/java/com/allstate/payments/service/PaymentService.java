@@ -11,4 +11,8 @@ public interface PaymentService {
     public Payment getById(Integer id) throws PaymentNotFoundException;
 
     public List<Payment> getByCountry(String country);
+
+    public List<Payment> getByOrder(String order);
+
+    public List<String> getAllCountries();
 }
