@@ -1,6 +1,7 @@
 package com.allstate.payments;
 
 import com.allstate.payments.data.PaymentRepository;
+import com.allstate.payments.data.UserRepository;
 import com.allstate.payments.domain.Payment;
 import com.allstate.payments.service.PaymentService;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,9 @@ public class PaymentServiceTests {
 
     @MockBean
     private PaymentRepository paymentRepository;
+
+    @MockBean
+    private UserRepository userRepository;
 
     @Test
     public void testGetAllCountries() {

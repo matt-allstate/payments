@@ -19,6 +19,7 @@ public class CountryController {
 
     @GetMapping()
     public List<String> getAllCountries() {
+
         return paymentService.getAllCountries();
     }
 
